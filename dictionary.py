@@ -10,7 +10,11 @@ def translate(w):
     w = w.lower()
     if w in data:
         return data[w]
-    elif len(get_close_matches(w, data.keys())) > 0:
+    elif w.title() in data: # This will check for nouns with capitalization.
+        return data[w.title()]    
+    elif w.upper() in data: # This will check for acronyms. 
+        return data[w.upper()]    
+    elif len(get_close_matches(w, data.keys())) > 0: # This will check for similar words.
         yn = input("Did you mean %s? Enter Y if yes, or N if no: " % get_close_matches(w, data.keys())[0])    
         if yn == "Y":
             return data[get_close_matches(w, data.keys())[0]]
